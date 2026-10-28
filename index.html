@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#f5f7f2">
+  <title>AccessMap | Accessible Campus</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#" aria-label="AccessMap home">
+      <span class="brand-icon">A</span>
+      <span>Access<span class="brand-green">Map</span></span>
+    </a>
+    <span class="top-label">CAMPUS ACCESSIBILITY</span>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <span class="eyebrow">A CAMPUS FOR EVERYONE</span>
+      <h1>Move freely.<br><span>Belong everywhere.</span></h1>
+      <p>Find accessible campus facilities, check their status, and help others by reporting barriers.</p>
+      <a href="#locations" class="primary-button">Explore campus <span>↓</span></a>
+    </section>
+
+    <section class="stats" aria-label="Campus overview">
+      <article class="stat-card">
+        <span class="stat-icon">⌖</span>
+        <p>Campus locations</p>
+        <strong id="locationCount">0</strong>
+      </article>
+      <article class="stat-card">
+        <span class="stat-icon">✓</span>
+        <p>Marked accessible</p>
+        <strong id="accessibleCount">0</strong>
+      </article>
+      <article class="stat-card">
+        <span class="stat-icon">!</span>
+        <p>Barrier reports</p>
+        <strong id="reportCount">0</strong>
+      </article>
+    </section>
+
+    <section id="locations" class="section">
+      <div class="section-heading">
+        <div>
+          <span class="eyebrow">DISCOVER</span>
+          <h2>Explore your campus</h2>
+          <p>Find the facilities you need before you arrive.</p>
+        </div>
+      </div>
+
+      <div class="filters">
+        <label class="search-box">
+          <span aria-hidden="true">⌕</span>
+          <input id="searchInput" type="search"
+            placeholder="Search buildings or facilities..."
+            aria-label="Search buildings or facilities">
+        </label>
+        <label class="filter-label">
+          <span class="sr-only">Filter by facility</span>
+          <select id="typeFilter">
+            <option value="all">All facilities</option>
+            <option value="ramp">Ramps</option>
+            <option value="lift">Lifts</option>
+            <option value="washroom">Accessible washrooms</option>
+            <option value="stepfree">Step-free entrances</option>
+          </select>
+        </label>
+      </div>
+
+      <div id="campusMap" class="campus-map">
+        <div class="map-label">CAMPUS GUIDE · ILLUSTRATIVE LAYOUT</div>
+        <div class="map-road road-one"></div>
+        <div class="map-road road-two"></div>
+        <div id="mapPins" class="map-pins"></div>
+        <p class="map-note">Demo map — not for navigation</p>
+      </div>
+
+      <div id="locationGrid" class="location-grid"></div>
+      <p id="emptyMessage" class="empty-message" hidden>
+        No matching locations. Try another search or filter.
+      </p>
+      <p class="demo-note">Demo data only. Accessibility details must be checked on site.</p>
+    </section>
+
+    <section class="confidence-panel">
+        <section class="route-section">
+  <div>
+    <span class="eyebrow">PLAN YOUR JOURNEY</span>
+    <h2>Can I get there?</h2>
+    <p class="section-intro">
+      Check whether your demo route has any reported accessibility barriers.
+    </p>
+  </div>
+
+  <div class="route-form">
+    <label>
+      Starting point
+      <select id="startPoint">
+        <option value="gate">Main Gate</option>
+        <option value="hostel">Student Hostel</option>
+        <option value="parking">Accessible Parking</option>
+      </select>
+    </label>
+
+    <label>
+      Destination
+      <select id="destination">
+      </select>
+    </label>
+
+    <button id="checkRoute" class="primary-button" type="button">
+      Check route →
+    </button>
+  </div>
+
+  <div id="routeResult" class="route-result" hidden></div>
+</section>
+      <div class="confidence-symbol">✓</div>
+      <div>
+        <span class="eyebrow">OUR DIFFERENCE</span>
+        <h2>Access Confidence</h2>
+        <p>Accessibility information can change. We show when a location needs checking or a barrier has been reported.</p>
+      </div>
+    </section>
+
+    <section class="section report-section" id="report">
+      <span class="eyebrow">MAKE A DIFFERENCE</span>
+      <h2>Report an accessibility barrier</h2>
+      <p class="section-intro">Noticed a problem? Share it so the campus community knows.</p>
+
+      <form id="reportForm" class="report-form">
+        <label>
+          Campus location
+          <select id="reportLocation" required></select>
+        </label>
+        <label>
+          Type of barrier
+          <select id="reportType" required>
+            <option value="">Choose an issue</option>
+            <option>Blocked ramp</option>
+            <option>Lift not working</option>
+            <option>Step-free entrance unavailable</option>
+            <option>Accessible washroom issue</option>
+            <option>Other accessibility issue</option>
+          </select>
+        </label>
+        <label>
+          Describe the issue
+          <textarea id="reportDescription" rows="3" maxlength="300"
+            placeholder="Tell us what you noticed..." required></textarea>
+        </label>
+        <button class="primary-button submit-button" type="submit">
+          Submit report <span>→</span>
+        </button>
+        <p class="form-note">Please don't include private or sensitive personal information.</p>
+      </form>
+      <p id="formMessage" class="form-message" role="status" aria-live="polite"></p>
+    </section>
+
+    <section class="section reports-section">
+      <div class="section-heading">
+        <div>
+          <span class="eyebrow">COMMUNITY UPDATES</span>
+          <h2>Recent barrier reports</h2>
+        </div>
+      </div>
+      <div id="reportsList" class="reports-list"></div>
+    </section>
+  </main>
+
+  <footer>
+    <a class="brand footer-brand" href="#">Access<span class="brand-green">Map</span></a>
+    <p>Designed for a more accessible campus. 💚</p>
+    <p class="footer-small">Student prototype · Sample campus data</p>
+  </footer>
+</body>
+</html>
